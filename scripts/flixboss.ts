@@ -13,9 +13,9 @@ main()
 async function fetchFlixboss() {
   let movies = []
 
-  for (let i = 1; i < 20; i++) {
+  for (let i = 1; i < 10; i++) {
     const {data} = await got(
-      'https://de.flixboss.com/x/filter/filme/-/-/imdb/2/0/1'
+      `https://de.flixboss.com/x/filter/filme/-/-/imdb/${i}/0/1`
     ).json()
 
     movies = movies.concat(extractMovies(data))
