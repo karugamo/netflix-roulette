@@ -6,7 +6,8 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html --public-url '/netflix-roulette'",
-    "flixboss": "ts-node ./scripts/flixboss"
+    "flixboss": "ts-node ./scripts/flixboss",
+    "justwatch": "ts-node ./scripts/justwatch"
   },
   "repository": {
     "type": "git",
