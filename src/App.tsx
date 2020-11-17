@@ -11,10 +11,11 @@ export default function App() {
     <Main>
       <Title>Netflix Roulette</Title>
       <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in
-        consectetur velit, vitae pretium justo. Nunc non augue aliquet,
-        consectetur odio ac, pharetra mi. Praesent quis condimentum risus, nec
-        congue.
+        Ever feel like you’re not finding new movies when browsing Netflix?
+        You’re not sure what to watch and you want to make sure to draw from the
+        full catalogue and not be restricted by the official recommendation?
+        Spin the Netflix Roulette to find random Movies that are available on
+        Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
       </Text>
       <MovieThumbnail movie={movie} onSpin={spin} />
     </Main>
