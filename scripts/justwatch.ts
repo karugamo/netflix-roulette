@@ -1,11 +1,12 @@
 import got from 'got'
-import {keyBy} from 'lodash'
+import {keyBy, range} from 'lodash'
 import {Movie} from '../src/types'
 import {save} from './util'
 
 async function main() {
   const data = await fetchJustWatch()
   const movies = data.map(selectMovie)
+  console.log('Fetched', movies.length, 'movies')
   save('movies', movies)
 }
 
@@ -60,11 +61,19 @@ async function fetchJustWatch() {
   }
 
   const encodedQuery = encodeURI(JSON.stringify(query))
-  const data: any = await got(
-    `https://apis.justwatch.com/content/titles/de_DE/popular?body=${encodedQuery}&language=en`
-  ).json()
 
-  return data?.items
+  let data = []
+
+  for (const page of range(1, 11)) {
+    query.page = page
+    const {items}: any = await got(
+      `https://apis.justwatch.com/content/titles/de_DE/popular?body=${encodedQuery}&language=en`
+    ).json()
+
+    data = data.concat(items)
+  }
+
+  return data
 }
 
 function getGenreName(genreId: number) {
