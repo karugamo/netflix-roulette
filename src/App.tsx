@@ -1,8 +1,17 @@
+import {sample} from 'lodash'
 import React from 'react'
 import styled from 'styled-components'
+import movies from '../data/movies.json'
+import MovieThumbnail from './components/MovieThumbnail'
 
 export default function App() {
-  return <Main>a nice new project</Main>
+  const movie = sample(movies)
+
+  return (
+    <Main>
+      <MovieThumbnail movie={movie} />
+    </Main>
+  )
 }
 
 const Main = styled.div`
@@ -13,5 +22,4 @@ const Main = styled.div`
 
   background-color: #eeeee4;
   color: #242422;
-  font-size: 75px;
 `
