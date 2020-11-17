@@ -10,7 +10,7 @@ export default function MovieThumbnail({movie}: {movie: Movie}) {
         <Title>
           {title} ({year})
         </Title>
-        <Image width="479" src={image} />
+        <Image src={image} />
       </Link>
       <Info>
         <Genres>Genres: {genres.join(', ')}</Genres>
@@ -53,5 +53,5 @@ const Container = styled.div`
   width: 479px;
 `
 const Image = styled.img`
-  height: 269px;
+  height: 400px;
 `

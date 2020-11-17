@@ -27,7 +27,8 @@ function selectMovie(justWatchMovie: any): Movie {
     title,
     year: original_release_year,
     genres: genre_ids.map(getGenreName),
-    rating: scoring.find(({provider_type}) => provider_type === 'imdb:score'),
+    rating: scoring.find(({provider_type}) => provider_type === 'imdb:score')
+      .value,
     image: `https://images.justwatch.com${poster.slice(
       0,
       -'{profile}'.length
@@ -60,12 +61,11 @@ async function fetchJustWatch() {
     matching_offers_only: true
   }
 
-  const encodedQuery = encodeURI(JSON.stringify(query))
-
   let data = []
 
   for (const page of range(1, 11)) {
     query.page = page
+    const encodedQuery = encodeURI(JSON.stringify(query))
     const {items}: any = await got(
       `https://apis.justwatch.com/content/titles/de_DE/popular?body=${encodedQuery}&language=en`
     ).json()
