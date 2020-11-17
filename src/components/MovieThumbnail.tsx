@@ -12,8 +12,10 @@ export default function MovieThumbnail({movie}: {movie: Movie}) {
         </Title>
         <Image width="479" src={image} />
       </Link>
-      <Genres>Genres: {genres.join(', ')}</Genres>
-      <Rating>ImdB: {rating}</Rating>
+      <Info>
+        <Genres>Genres: {genres.join(', ')}</Genres>
+        <Rating>ImdB: {rating}</Rating>
+      </Info>
     </Container>
   )
 }
@@ -25,7 +27,20 @@ const Link = styled.a`
   color: black;
 `
 
-const Title = styled.h2``
+const Info = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 5px;
+  height: 30px;
+`
+
+const Title = styled.h2`
+  text-align: center;
+  font-size: 20px;
+  height: 30px;
+`
 
 const Rating = styled.div``
 
@@ -35,5 +50,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 479px;
 `
-const Image = styled.img``
+const Image = styled.img`
+  height: 269px;
+`
