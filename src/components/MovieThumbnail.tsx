@@ -6,7 +6,7 @@ export default function MovieThumbnail({movie}: {movie: Movie}) {
   const {title, image, genres, rating, year, id} = movie
   return (
     <Container>
-      <Link href={`https://www.netflix.com/title/${id}`}>
+      <Link target="_blank" href={`https://www.netflix.com/title/${id}`}>
         <Title>
           {title} ({year})
         </Title>
