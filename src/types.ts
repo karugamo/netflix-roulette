@@ -7,4 +7,5 @@ export type Movie = {
   image: string
   runtime: number
   ids?: any
+  spokenLanguages?: any
 }

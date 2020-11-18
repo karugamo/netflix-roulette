@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {Movie} from '../types'
 import SpinButton from './SpinButton'
+import ISO6391 from 'iso-639-1'
 
 type MovieThumbnnailProps = {
   movie: Movie
@@ -9,7 +10,16 @@ type MovieThumbnnailProps = {
 }
 
 export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
-  const {title, image, genres, rating, year, id, runtime} = movie
+  const {
+    title,
+    image,
+    genres,
+    rating,
+    year,
+    id,
+    runtime,
+    spokenLanguages
+  } = movie
   const netflixLink = `https://www.netflix.com/title/${id}`
 
   return (
@@ -25,20 +35,29 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
             </Title>
           </Link>
           <Heading>GENRES</Heading>
-          <Genres>
+          <Data>
             {genres.map((genre, index) => (
               <>
                 <span>{genre}</span>
                 {index < genres.length - 1 && <Dot> • </Dot>}
               </>
             ))}
-          </Genres>
+          </Data>
           <Divider />
           <Heading>IMDB RATING</Heading>
-          <Rating>{rating?.toFixed(1)}</Rating>
+          <Data>{rating?.toFixed(1)}</Data>
           <Divider />
           <Heading>RUNTIME</Heading>
-          <Rating>{formatDuration(runtime)}</Rating>
+          <Data>{formatDuration(runtime)}</Data>
+          <Divider />
+          <Heading>LANGUAGES</Heading>
+          <Data>
+            {spokenLanguages
+              ?.map(ISO6391.getName)
+              .filter((code) => code)
+              .slice(0, 4)
+              .join(', ')}
+          </Data>
           <Divider />
         </Info>
         <SpinButtonContainer>
@@ -108,9 +127,7 @@ const Title = styled.h2`
   height: 105px;
 `
 
-const Rating = styled.div``
-
-const Genres = styled.div``
+const Data = styled.div``
 
 const Container = styled.div`
   height: 600px;
