@@ -100,6 +100,7 @@ const RightContainer = styled.div`
   height: 585px;
   padding: 5px 20px;
   padding-left: 30px;
+  padding-bottom: 5px;
 `
 
 const Info = styled.div`
@@ -108,7 +109,7 @@ const Info = styled.div`
   font-weight: bold;
   color: white;
   width: 100%;
-  height: 60%;
+  height: 80%;
 `
 
 const SpinButtonContainer = styled.div`
@@ -117,8 +118,8 @@ const SpinButtonContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  height: 33%;
-  padding-bottom: 7%;
+  height: 20%;
+  padding-bottom: 20px;
 `
 
 const Title = styled.h2`

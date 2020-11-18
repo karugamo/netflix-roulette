@@ -10,9 +10,10 @@ const Button = styled.button`
   padding: 5px 20px;
   background-color: #e50a15;
   width: 90%;
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
-  font-size: 40px;
+  font-size: 36px;
+  height: 47px;
   cursor: pointer;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
   user-select: none;
