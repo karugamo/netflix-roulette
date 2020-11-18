@@ -9,7 +9,7 @@ type MovieThumbnnailProps = {
 }
 
 export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
-  const {title, image, genres, rating, year, id} = movie
+  const {title, image, genres, rating, year, id, runtime} = movie
   const netflixLink = `https://www.netflix.com/title/${id}`
 
   return (
@@ -27,8 +27,11 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
           <Heading>GENRES</Heading>
           <Genres>{genres.join(', ')}</Genres>
           <Divider />
-          <Heading>RATING</Heading>
+          <Heading>IMDB RATING</Heading>
           <Rating>{rating?.toFixed(1)}</Rating>
+          <Divider />
+          <Heading>RUNTIME</Heading>
+          <Rating>{formatDuration(runtime)}</Rating>
           <Divider />
         </Info>
         <SpinButtonContainer>
@@ -37,6 +40,17 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
       </RightContainer>
     </Container>
   )
+}
+
+function formatDuration(totalMinutes: number): string {
+  var hours = totalMinutes / 60
+  var rhours = Math.floor(hours)
+  var minutes = (hours - rhours) * 60
+  var rminutes = Math.round(minutes)
+
+  if (rhours === 0) return `${rminutes}min`
+
+  return `${rhours}h ${rminutes}min`
 }
 
 const Link = styled.a`

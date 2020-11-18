@@ -19,12 +19,14 @@ function selectMovie(justWatchMovie: any): Movie {
     scoring,
     original_release_year,
     offers,
-    poster
+    poster,
+    runtime
   } = justWatchMovie
 
   return {
     id: offers[0].urls.standard_web.split('/').pop(),
     title,
+    runtime,
     year: original_release_year,
     genres: genre_ids.map(getGenreName),
     rating: scoring.find(({provider_type}) => provider_type === 'imdb:score')
@@ -49,7 +51,8 @@ async function fetchJustWatch() {
       'scoring',
       'title',
       'tmdb_popularity',
-      'offers'
+      'offers',
+      'runtime'
     ],
     content_types: ['movie'],
     providers: ['nfx'],
