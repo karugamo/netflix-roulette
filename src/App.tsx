@@ -1,12 +1,16 @@
-import {sample} from 'lodash'
+import {shuffle} from 'lodash'
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import movies from '../data/movies.json'
 import MovieThumbnail from './components/MovieThumbnail'
 import {Movie} from './types'
 
+const shuffledMovies = randomEndlessNoRepeatMovies()
+
 export default function App() {
-  const [movie, setMovie] = useState<Movie>(sample(movies))
+  const [movie, setMovie] = useState<Movie>(getRandomMovie())
+  const [nextMovie, setNextMovie] = useState<Movie>(getRandomMovie())
+
   return (
     <Main>
       <Title>Netflix Roulette</Title>
@@ -18,11 +22,26 @@ export default function App() {
         Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
       </Text>
       <MovieThumbnail movie={movie} onSpin={spin} />
+      <ImagePreloader src={nextMovie.image} />
     </Main>
   )
 
   function spin() {
-    setMovie(sample(movies.filter(({id}) => id !== movie.id)))
+    setMovie(nextMovie)
+    setNextMovie(getRandomMovie())
+  }
+}
+
+function getRandomMovie(): Movie {
+  return shuffledMovies.next().value
+}
+
+function* randomEndlessNoRepeatMovies(): Generator<Movie> {
+  while (true) {
+    let shuffledMovies = shuffle(movies)
+    for (const movie of shuffledMovies) {
+      yield movie
+    }
   }
 }
 
@@ -44,4 +63,8 @@ const Text = styled.p`
   width: 50%;
   text-align: center;
   margin-bottom: 40px;
+`
+
+const ImagePreloader = styled.img.attrs({width: 0, height: 0})`
+  display: none;
 `
