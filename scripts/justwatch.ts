@@ -1,5 +1,5 @@
 import got from 'got'
-import {keyBy, range} from 'lodash'
+import {keyBy, mapValues, range} from 'lodash'
 import {Movie} from '../src/types'
 import {save} from './util'
 
@@ -13,6 +13,8 @@ async function main() {
 main()
 
 function selectMovie(justWatchMovie: any): Movie {
+  // for available data, see: https://apis.justwatch.com/content/titles/movie/56184/locale/de_DE?language=en
+
   const {
     title,
     genre_ids,
@@ -20,12 +22,14 @@ function selectMovie(justWatchMovie: any): Movie {
     original_release_year,
     offers,
     poster,
-    runtime
+    runtime,
+    external_ids
   } = justWatchMovie
 
   return {
     id: offers[0].urls.standard_web.split('/').pop(),
     title,
+    ids: mapValues(keyBy(external_ids, 'provider'), 'external_id'),
     runtime,
     year: original_release_year,
     genres: genre_ids.map(getGenreName),
@@ -52,7 +56,8 @@ async function fetchJustWatch() {
       'title',
       'tmdb_popularity',
       'offers',
-      'runtime'
+      'runtime',
+      'external_ids'
     ],
     content_types: ['movie'],
     providers: ['nfx'],

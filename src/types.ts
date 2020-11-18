@@ -6,4 +6,5 @@ export type Movie = {
   rating: number
   image: string
   runtime: number
+  ids?: any
 }
