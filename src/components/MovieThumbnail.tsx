@@ -25,7 +25,14 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
             </Title>
           </Link>
           <Heading>GENRES</Heading>
-          <Genres>{genres.join(', ')}</Genres>
+          <Genres>
+            {genres.map((genre, index) => (
+              <>
+                <span>{genre}</span>
+                {index < genres.length - 1 && <Dot> • </Dot>}
+              </>
+            ))}
+          </Genres>
           <Divider />
           <Heading>IMDB RATING</Heading>
           <Rating>{rating?.toFixed(1)}</Rating>
@@ -61,6 +68,10 @@ const Link = styled.a`
 `
 
 const ImageLink = styled.a``
+
+const Dot = styled.span`
+  color: #7a7a7a;
+`
 
 const RightContainer = styled.div`
   display: flex;
