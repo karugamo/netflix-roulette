@@ -15,7 +15,7 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
   return (
     <Container>
       <ImageLink target="_blank" href={netflixLink}>
-        <Image src={image} />
+        <Image key={image} src={image} />
       </ImageLink>
       <RightContainer>
         <Info>
@@ -98,6 +98,7 @@ const Container = styled.div`
 const Image = styled.img`
   border-radius: 10px 0px 0px 10px;
   height: 100%;
+  width: 422px;
 `
 
 const Heading = styled.h3`
