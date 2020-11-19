@@ -12,17 +12,87 @@ type FilterProps = {
 
 export default function Filter({onChange}: FilterProps) {
   return (
-    <Select
-      options={genreOptions}
-      isMulti
-      onChange={onChange}
-      placeholder="Filter by Genre..."
-      closeMenuOnSelect={false}
-      hideSelectedOptions={false}
-      components={{Option}}
-    />
+    <FilterContainer>
+      <Label>Genres</Label>
+      <Select
+        options={genreOptions}
+        defaultValue={genreOptions}
+        isMulti
+        onChange={onChange}
+        placeholder="Filter by Genre..."
+        closeMenuOnSelect={false}
+        hideSelectedOptions={false}
+        components={{Option, ValueContainer, MultiValue, Placeholder}}
+      />
+    </FilterContainer>
   )
 }
+
+const FilterContainer = styled.div``
+
+const Label = styled.div`
+  font-weight: bolder;
+  margin-bottom: 4px;
+`
+
+function getFilterText(options: string[], selectedOptions: string[]) {
+  const notSelectedOptions = options.filter(
+    (label) => !selectedOptions.includes(label)
+  )
+
+  if (
+    selectedOptions.length === options.length ||
+    selectedOptions.length === 0
+  ) {
+    return `All`
+  }
+  if (selectedOptions.length === 1) {
+    return `Only ${selectedOptions[0]}`
+  }
+
+  if (selectedOptions.length === 2) {
+    return `Only ${selectedOptions[0]} & ${selectedOptions[1]}`
+  }
+
+  if (notSelectedOptions.length <= 2) {
+    return `All except ${notSelectedOptions.join(', ')}`
+  }
+
+  if (notSelectedOptions.length < options.length / 2) {
+    return `Excluded ${notSelectedOptions.length}`
+  }
+
+  return ` ${selectedOptions.length} Selected`
+}
+
+function MultiValue() {
+  return <></>
+}
+
+function Placeholder() {
+  return <></>
+}
+
+function ValueContainer(props) {
+  const {getValue, options, children} = props
+  const selectedOptions: any[] = (getValue() || []).map(({label}) => label)
+
+  const text = getFilterText(
+    options.map(({label}) => label),
+    selectedOptions
+  )
+
+  return (
+    <components.ValueContainer {...props}>
+      <ValueContainerText>{text}</ValueContainerText>
+      {children}
+    </components.ValueContainer>
+  )
+}
+
+const ValueContainerText = styled.span`
+  color: white;
+`
 
 function Option({children, isSelected, ...props}: OptionProps<any>) {
   return (
@@ -34,7 +104,7 @@ function Option({children, isSelected, ...props}: OptionProps<any>) {
 
 const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
   width: 400px;
-  margin: 25px 10px;
+  margin-bottom: 10px;
 
   .react_select__option {
     width: 50%;
@@ -49,6 +119,10 @@ const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
     flex-wrap: wrap;
     width: 100%;
     max-height: 500px !important;
+  }
+
+  .react_select__value-container {
+    padding-right: 0px;
   }
 
   .react_select__control {
