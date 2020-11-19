@@ -10,12 +10,31 @@ type FilterProps = {
 }
 
 export default function Filter({onChange}: FilterProps) {
-  return <Select options={genreOptions} isMulti onChange={onChange} />
+  return (
+    <Select
+      options={genreOptions}
+      isMulti
+      onChange={onChange}
+      closeMenuOnSelect={false}
+      hideSelectedOptions={false}
+    />
+  )
 }
 
 const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
   min-width: 400px;
   margin: 25px 10px;
+
+  .react_select__option {
+    width: 50%;
+  }
+
+  .react_select__menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-height: 400px !important;
+  }
 
   .react_select__control {
     border: none;
