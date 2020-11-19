@@ -84,6 +84,7 @@ export default function App() {
       setBackMovie(newMoviePool.next().value)
     }
 
+    setIsFlipped((flipped) => !flipped)
     setNextMovie(newMoviePool.next().value)
   }
 
