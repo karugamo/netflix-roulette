@@ -50,7 +50,7 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
           <Heading>RUNTIME</Heading>
           <Data>{formatDuration(runtime)}</Data>
           <Divider />
-          <Heading>LANGUAGES</Heading>
+          <Heading>SPOKEN LANGUAGES</Heading>
           <Data>
             {spokenLanguages
               ?.map(ISO6391.getName)
