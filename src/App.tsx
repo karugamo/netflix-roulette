@@ -10,9 +10,36 @@ import {getGenreOptions} from './genres'
 
 const genreOptions = getGenreOptions()
 
-const Select = styled(ReactSelect)`
+const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
   min-width: 400px;
   margin: 25px 10px;
+
+  .react_select__control {
+    border: none;
+  }
+
+  .react_select__control,
+  .react_select__menu {
+    cursor: pointer;
+    background-color: #333333;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .react_select__menu {
+    color: white;
+  }
+
+  .react_select__placeholder {
+    color: #dddddd;
+  }
+
+  .react_select__option--is-focused {
+    background-color: #e50a15;
+  }
+
+  .react_select__indicator-separator {
+    background-color: #777777;
+  }
 `
 
 const rotationSpeed = 1
