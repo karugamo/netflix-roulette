@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import ReactSelect from 'react-select'
+import ReactSelect, {components, OptionProps} from 'react-select'
 import {getGenreOptions} from '../genres'
+import CheckboxIcon from './CheckboxIcon'
 
 const genreOptions = getGenreOptions()
 
@@ -17,23 +18,36 @@ export default function Filter({onChange}: FilterProps) {
       onChange={onChange}
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
+      components={{Option}}
     />
   )
 }
 
+function Option({children, isSelected, ...props}: OptionProps<any>) {
+  return (
+    <components.Option isSelected={isSelected} {...props}>
+      <CheckboxIcon isSelected={isSelected} /> {children}
+    </components.Option>
+  )
+}
+
 const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
-  min-width: 400px;
+  width: 400px;
   margin: 25px 10px;
 
   .react_select__option {
     width: 50%;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
   }
 
   .react_select__menu-list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    max-height: 400px !important;
+    max-height: 500px !important;
   }
 
   .react_select__control {
