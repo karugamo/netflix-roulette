@@ -70,7 +70,11 @@ const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
   }
 
   .react_select__option--is-focused {
-    background-color: #e50a15;
+    background-color: #e50a15 !important;
+  }
+
+  .react_select__option--is-selected {
+    background-color: #333333;
   }
 
   .react_select__indicator-separator {
