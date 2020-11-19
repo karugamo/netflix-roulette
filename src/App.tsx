@@ -1,16 +1,25 @@
-import {shuffle} from 'lodash'
+import {intersection, shuffle} from 'lodash'
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import movies from '../data/movies.json'
 import MovieThumbnail from './components/MovieThumbnail'
 import {Movie} from './types'
 import CardFlip from 'react-card-flip'
+import ReactSelect from 'react-select'
+import {getGenreOptions} from './genres'
 
-const shuffledMovies = randomEndlessNoRepeatMovies()
+const genreOptions = getGenreOptions()
+
+const Select = styled(ReactSelect)`
+  min-width: 400px;
+  margin: 25px 10px;
+`
 
 const rotationSpeed = 1
 
 export default function App() {
+  const [moviePool, setMoviePool] = useState(randomEndlessNoRepeat(movies))
+
   const [frontMovie, setFrontMovie] = useState<Movie>(getRandomMovie())
   const [backMovie, setBackMovie] = useState<Movie>(getRandomMovie())
   const [nextMovie, setNextMovie] = useState<Movie>(getRandomMovie())
@@ -27,6 +36,7 @@ export default function App() {
         Spin the Netflix Roulette to find random Movies that are available on
         Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
       </Text>
+      <Select options={genreOptions} isMulti onChange={onGenreFilterChange} />
       <CardFlip
         flipSpeedFrontToBack={rotationSpeed}
         flipSpeedBackToFront={rotationSpeed}
@@ -52,15 +62,39 @@ export default function App() {
     setNextMovie(getRandomMovie())
     setIsFlipped((flipped) => !flipped)
   }
+
+  function onGenreFilterChange(selectedOptions) {
+    if (!selectedOptions || selectedOptions.length === 0) {
+      return setMoviePool(randomEndlessNoRepeat(movies))
+    }
+    const filteredMovies = movies.filter(
+      (movie) =>
+        intersection(
+          movie.genres,
+          selectedOptions.map((option) => option.label)
+        ).length > 0
+    )
+
+    const newMoviePool = randomEndlessNoRepeat(filteredMovies)
+    setMoviePool(newMoviePool)
+
+    if (isFlipped) {
+      setFrontMovie(newMoviePool.next().value)
+    } else {
+      setBackMovie(newMoviePool.next().value)
+    }
+
+    setNextMovie(newMoviePool.next().value)
+  }
+
+  function getRandomMovie(): Movie {
+    return moviePool.next().value
+  }
 }
 
-function getRandomMovie(): Movie {
-  return shuffledMovies.next().value
-}
-
-function* randomEndlessNoRepeatMovies(): Generator<Movie> {
+function* randomEndlessNoRepeat(moviePool: Movie[]): Generator<Movie> {
   while (true) {
-    let shuffledMovies = shuffle(movies)
+    let shuffledMovies = shuffle(moviePool)
     for (const movie of shuffledMovies) {
       yield movie
     }
