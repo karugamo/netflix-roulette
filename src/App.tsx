@@ -4,12 +4,18 @@ import styled from 'styled-components'
 import movies from '../data/movies.json'
 import MovieThumbnail from './components/MovieThumbnail'
 import {Movie} from './types'
+import CardFlip from 'react-card-flip'
 
 const shuffledMovies = randomEndlessNoRepeatMovies()
 
+const rotationSpeed = 1
+
 export default function App() {
-  const [movie, setMovie] = useState<Movie>(getRandomMovie())
+  const [frontMovie, setFrontMovie] = useState<Movie>(getRandomMovie())
+  const [backMovie, setBackMovie] = useState<Movie>(getRandomMovie())
   const [nextMovie, setNextMovie] = useState<Movie>(getRandomMovie())
+
+  const [isFlipped, setIsFlipped] = useState<boolean>(false)
 
   return (
     <Main>
@@ -21,14 +27,30 @@ export default function App() {
         Spin the Netflix Roulette to find random Movies that are available on
         Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
       </Text>
-      <MovieThumbnail movie={movie} onSpin={spin} />
+      <CardFlip
+        flipSpeedFrontToBack={rotationSpeed}
+        flipSpeedBackToFront={rotationSpeed}
+        isFlipped={isFlipped}
+        flipDirection="vertical"
+        infinite
+      >
+        <MovieThumbnail movie={frontMovie} onSpin={spin} />
+        <MovieThumbnail movie={backMovie} onSpin={spin} />
+      </CardFlip>
+      <ImagePreloader src={frontMovie.image} />
+      <ImagePreloader src={backMovie.image} />
       <ImagePreloader src={nextMovie.image} />
     </Main>
   )
 
   function spin() {
-    setMovie(nextMovie)
+    if (isFlipped) {
+      setFrontMovie(nextMovie)
+    } else {
+      setBackMovie(nextMovie)
+    }
     setNextMovie(getRandomMovie())
+    setIsFlipped((flipped) => !flipped)
   }
 }
 
