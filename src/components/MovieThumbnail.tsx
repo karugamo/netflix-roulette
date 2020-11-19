@@ -22,6 +22,9 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
   } = movie
   const netflixLink = `https://www.netflix.com/title/${id}`
 
+  // const title =
+  //   'Jim & Andy: The Great Beyond- Featuring a Very Special, Contractually Obligated Mention of Tony Clifton'
+
   return (
     <Container>
       <ImageLink target="_blank" href={netflixLink}>
@@ -30,9 +33,8 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
       <RightContainer>
         <Info>
           <Link target="_blank" href={netflixLink}>
-            <Title>
-              {title} ({year})
-            </Title>
+            <Title>{title}</Title>
+            <Year>({year})</Year>
           </Link>
           <Heading>GENRES</Heading>
           <Data>
@@ -122,10 +124,17 @@ const SpinButtonContainer = styled.div`
   padding-bottom: 20px;
 `
 
-const Title = styled.h2`
-  font-size: 30px;
+const Title = styled.h2<{children: string}>`
+  font-size: ${({children}) => children.length * -0.1875 + 43.75}px;
   text-decoration: none;
-  height: 105px;
+  margin-bottom: 0;
+  margin-top: 10px;
+`
+
+const Year = styled.h3`
+  font-weight: lighter;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.8);
 `
 
 const Data = styled.div``
