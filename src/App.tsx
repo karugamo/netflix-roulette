@@ -5,42 +5,7 @@ import movies from '../data/movies.json'
 import MovieThumbnail from './components/MovieThumbnail'
 import {Movie} from './types'
 import CardFlip from 'react-card-flip'
-import ReactSelect from 'react-select'
-import {getGenreOptions} from './genres'
-
-const genreOptions = getGenreOptions()
-
-const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
-  min-width: 400px;
-  margin: 25px 10px;
-
-  .react_select__control {
-    border: none;
-  }
-
-  .react_select__control,
-  .react_select__menu {
-    cursor: pointer;
-    background-color: #333333;
-    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .react_select__menu {
-    color: white;
-  }
-
-  .react_select__placeholder {
-    color: #dddddd;
-  }
-
-  .react_select__option--is-focused {
-    background-color: #e50a15;
-  }
-
-  .react_select__indicator-separator {
-    background-color: #777777;
-  }
-`
+import Filter from './components/Filter'
 
 const rotationSpeed = 1
 
@@ -63,7 +28,7 @@ export default function App() {
         Spin the Netflix Roulette to find random Movies that are available on
         Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
       </Text>
-      <Select options={genreOptions} isMulti onChange={onGenreFilterChange} />
+      <Filter onChange={onGenreFilterChange} />
       <CardFlip
         flipSpeedFrontToBack={rotationSpeed}
         flipSpeedBackToFront={rotationSpeed}
@@ -91,16 +56,19 @@ export default function App() {
   }
 
   function onGenreFilterChange(selectedOptions) {
+    let filteredMovies = []
+
     if (!selectedOptions || selectedOptions.length === 0) {
-      return setMoviePool(randomEndlessNoRepeat(movies))
+      filteredMovies = movies
+    } else {
+      filteredMovies = movies.filter(
+        (movie) =>
+          intersection(
+            movie.genres,
+            selectedOptions.map((option) => option.label)
+          ).length > 0
+      )
     }
-    const filteredMovies = movies.filter(
-      (movie) =>
-        intersection(
-          movie.genres,
-          selectedOptions.map((option) => option.label)
-        ).length > 0
-    )
 
     const newMoviePool = randomEndlessNoRepeat(filteredMovies)
     setMoviePool(newMoviePool)
