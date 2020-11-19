@@ -16,6 +16,7 @@ export default function Filter({onChange}: FilterProps) {
       options={genreOptions}
       isMulti
       onChange={onChange}
+      placeholder="Filter by Genre..."
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       components={{Option}}
