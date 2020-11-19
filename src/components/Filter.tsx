@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import ReactSelect, {components, OptionProps} from 'react-select'
 import {getGenreOptions} from '../genres'
@@ -11,14 +11,27 @@ type FilterProps = {
 }
 
 export default function Filter({onChange}: FilterProps) {
+  const [selectedOptions, setSelectedOptions] = useState(genreOptions)
+
+  function onSelectChange(option, {action}) {
+    if (!option) return
+
+    const newOptions = action === 'clear' ? genreOptions : option
+
+    onChange(newOptions)
+
+    setSelectedOptions(newOptions)
+  }
   return (
     <FilterContainer>
       <Label>Genres</Label>
       <Select
         options={genreOptions}
-        defaultValue={genreOptions}
+        value={selectedOptions}
         isMulti
-        onChange={onChange}
+        isClearable={genreOptions.length !== selectedOptions.length}
+        isSearchable={false}
+        onChange={onSelectChange}
         placeholder="Filter by Genre..."
         closeMenuOnSelect={false}
         hideSelectedOptions={false}
