@@ -18,12 +18,9 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
     year,
     id,
     runtime,
-    spokenLanguages
+    originalLanguage
   } = movie
   const netflixLink = `https://www.netflix.com/title/${id}`
-
-  // const title =
-  //   'Jim & Andy: The Great Beyond- Featuring a Very Special, Contractually Obligated Mention of Tony Clifton'
 
   return (
     <Container>
@@ -52,14 +49,8 @@ export default function MovieThumbnail({movie, onSpin}: MovieThumbnnailProps) {
           <Heading>RUNTIME</Heading>
           <Data>{formatDuration(runtime)}</Data>
           <Divider />
-          <Heading>SPOKEN LANGUAGES</Heading>
-          <Data>
-            {spokenLanguages
-              ?.map(ISO6391.getName)
-              .filter((code) => code)
-              .slice(0, 4)
-              .join(', ')}
-          </Data>
+          <Heading>ORIGINAL LANGUAGE</Heading>
+          <Data>{ISO6391.getName(originalLanguage)}</Data>
           <Divider />
         </Info>
         <SpinButtonContainer>

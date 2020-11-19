@@ -8,4 +8,5 @@ export type Movie = {
   runtime: number
   ids?: any
   spokenLanguages?: any
+  originalLanguage?: string
 }
