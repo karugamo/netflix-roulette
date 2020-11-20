@@ -10,3 +10,8 @@ export type Movie = {
   spokenLanguages?: any
   originalLanguage?: string
 }
+
+export type Option = {
+  label: string
+  value: string | number
+}

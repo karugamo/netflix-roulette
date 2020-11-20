@@ -1,6 +1,6 @@
 import got from 'got'
 import {keyBy, mapValues, range} from 'lodash'
-import {getGenreName} from '../src/genres'
+import {getGenreName} from '../src/const'
 import {Movie} from '../src/types'
 import {save} from './util'
 

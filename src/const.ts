@@ -1,5 +1,48 @@
 import {keyBy} from 'lodash'
 
+import ISO6391 from 'iso-639-1'
+
+const languages = [
+  'en',
+  'ja',
+  'fr',
+  'de',
+  'hi',
+  'ta',
+  'tr',
+  'uk',
+  'es',
+  'kn',
+  'pt',
+  'it',
+  'cn',
+  'mr',
+  'cs',
+  'id',
+  'ie',
+  'zh',
+  'ko',
+  'he',
+  'th',
+  'da',
+  'ar',
+  'ur',
+  'pl',
+  'te',
+  'nl',
+  'hr',
+  'is',
+  'fa',
+  'ms',
+  'eu',
+  'ml'
+]
+
+export const languageOptions = languages.map((code) => ({
+  value: code,
+  label: ISO6391.getName(code) || code
+}))
+
 export const genres = [
   {
     id: 1,
@@ -136,9 +179,10 @@ export const genres = [
   }
 ]
 
-export function getGenreOptions() {
-  return genres.map(({id, translation}) => ({value: id, label: translation}))
-}
+export const genreOptions = genres.map(({id, translation}) => ({
+  value: id,
+  label: translation
+}))
 
 export function getGenreName(genreId: number) {
   const genreById = keyBy(genres, 'id')

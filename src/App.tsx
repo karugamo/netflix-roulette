@@ -28,7 +28,7 @@ export default function App() {
         Spin the Netflix Roulette to find random Movies that are available on
         Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
       </Text>
-      <Filter onChange={onGenreFilterChange} />
+      <Filter onChange={onFilterChange} movies={movies} />
       <CardFlip
         flipSpeedFrontToBack={rotationSpeed}
         flipSpeedBackToFront={rotationSpeed}
@@ -45,31 +45,7 @@ export default function App() {
     </Main>
   )
 
-  function spin() {
-    if (isFlipped) {
-      setFrontMovie(nextMovie)
-    } else {
-      setBackMovie(nextMovie)
-    }
-    setNextMovie(getRandomMovie())
-    setIsFlipped((flipped) => !flipped)
-  }
-
-  function onGenreFilterChange(selectedOptions) {
-    let filteredMovies = []
-
-    if (!selectedOptions || selectedOptions.length === 0) {
-      filteredMovies = movies
-    } else {
-      filteredMovies = movies.filter(
-        (movie) =>
-          intersection(
-            movie.genres,
-            selectedOptions.map((option) => option.label)
-          ).length > 0
-      )
-    }
-
+  function onFilterChange(filteredMovies: Movie[]) {
     const newMoviePool = randomEndlessNoRepeat(filteredMovies)
     setMoviePool(newMoviePool)
 
@@ -81,6 +57,16 @@ export default function App() {
 
     setIsFlipped((flipped) => !flipped)
     setNextMovie(newMoviePool.next().value)
+  }
+
+  function spin() {
+    if (isFlipped) {
+      setFrontMovie(nextMovie)
+    } else {
+      setBackMovie(nextMovie)
+    }
+    setNextMovie(getRandomMovie())
+    setIsFlipped((flipped) => !flipped)
   }
 
   function getRandomMovie(): Movie {
