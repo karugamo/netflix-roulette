@@ -46,6 +46,7 @@ const FilterContainer = styled.div``
 const Label = styled.div`
   font-weight: bolder;
   margin-bottom: 4px;
+  color: #545454;
 `
 
 function getFilterText(options: string[], selectedOptions: string[]) {
