@@ -1,22 +1,60 @@
-import {intersection, shuffle} from 'lodash'
+import {shuffle} from 'lodash'
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import movies from '../data/movies.json'
 import MovieThumbnail from './components/MovieThumbnail'
 import {Movie} from './types'
-import CardFlip from 'react-card-flip'
 import Filter from './components/Filter'
 
-const rotationSpeed = 1
+const CardsContainer = styled.div`
+  position: relative;
+  width: 872px;
+`
+
+const CardContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transition: transform 1s;
+`
+
+const positions = [
+  {
+    zIndex: 3,
+    transform: 'perspective(0px) rotateZ(0deg)'
+  },
+  {
+    zIndex: 2,
+    transform: 'perspective(0px) rotateZ(5deg) translateX(0px) translateY(40px)'
+  },
+  {
+    zIndex: 1,
+    transform:
+      'perspective(0px) rotateZ(10deg) translateX(0px) translateY(80px)'
+  },
+  {
+    zIndex: 0,
+    transform:
+      'perspective(0px) rotateZ(10deg) translateX(0px) translateY(80px)'
+  }
+]
+
+function getStyleForPosition(position: number) {
+  return positions[position % positions.length]
+}
 
 export default function App() {
   const [moviePool, setMoviePool] = useState(randomEndlessNoRepeat(movies))
 
-  const [frontMovie, setFrontMovie] = useState<Movie>(getRandomMovie())
-  const [backMovie, setBackMovie] = useState<Movie>(getRandomMovie())
-  const [nextMovie, setNextMovie] = useState<Movie>(getRandomMovie())
+  const [currentPosition, setCurrentPosition] = useState(0)
 
-  const [isFlipped, setIsFlipped] = useState<boolean>(false)
+  const [moviePositions, setMoviePositions] = useState<Movie[]>([
+    getRandomMovie(),
+    getRandomMovie(),
+    getRandomMovie(),
+    getRandomMovie()
+  ])
 
   return (
     <Main>
@@ -29,44 +67,51 @@ export default function App() {
         Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
       </Text>
       <Filter onChange={onFilterChange} movies={movies} />
-      <CardFlip
-        flipSpeedFrontToBack={rotationSpeed}
-        flipSpeedBackToFront={rotationSpeed}
-        isFlipped={isFlipped}
-        flipDirection="vertical"
-        infinite
-      >
-        <MovieThumbnail movie={frontMovie} onSpin={spin} />
-        <MovieThumbnail movie={backMovie} onSpin={spin} />
-      </CardFlip>
-      <ImagePreloader src={frontMovie.image} />
-      <ImagePreloader src={backMovie.image} />
-      <ImagePreloader src={nextMovie.image} />
+      <CardsContainer>
+        <CardContainer
+          key="pos-0"
+          style={getStyleForPosition(currentPosition + 0)}
+        >
+          <MovieThumbnail movie={moviePositions[0]} onSpin={spin} />
+        </CardContainer>
+        <CardContainer
+          key="pos-1"
+          style={getStyleForPosition(currentPosition + 1)}
+        >
+          <MovieThumbnail movie={moviePositions[1]} onSpin={spin} />
+        </CardContainer>
+        <CardContainer
+          key="pos-2"
+          style={getStyleForPosition(currentPosition + 2)}
+        >
+          <MovieThumbnail movie={moviePositions[2]} onSpin={spin} />
+        </CardContainer>
+        <CardContainer
+          key="pos-3"
+          style={getStyleForPosition(currentPosition + 3)}
+        >
+          <MovieThumbnail movie={moviePositions[3]} onSpin={spin} />
+        </CardContainer>
+      </CardsContainer>
     </Main>
   )
 
   function onFilterChange(filteredMovies: Movie[]) {
     const newMoviePool = randomEndlessNoRepeat(filteredMovies)
     setMoviePool(newMoviePool)
-
-    if (isFlipped) {
-      setFrontMovie(newMoviePool.next().value)
-    } else {
-      setBackMovie(newMoviePool.next().value)
-    }
-
-    setIsFlipped((flipped) => !flipped)
-    setNextMovie(newMoviePool.next().value)
   }
 
   function spin() {
-    if (isFlipped) {
-      setFrontMovie(nextMovie)
-    } else {
-      setBackMovie(nextMovie)
-    }
-    setNextMovie(getRandomMovie())
-    setIsFlipped((flipped) => !flipped)
+    setMoviePositions((moviePositions) =>
+      moviePositions.map((movie, index) =>
+        index === currentPosition ? getRandomMovie() : movie
+      )
+    )
+
+    setCurrentPosition((position) => {
+      if (!positions[position - 1]) return positions.length - 1
+      return position - 1
+    })
   }
 
   function getRandomMovie(): Movie {
@@ -86,10 +131,10 @@ function* randomEndlessNoRepeat(moviePool: Movie[]): Generator<Movie> {
 const Main = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   height: 100%;
   color: #242422;
+  overflow-y: hidden;
 `
 
 const Title = styled.h1`
@@ -101,8 +146,4 @@ const Text = styled.p`
   width: 50%;
   text-align: center;
   margin-bottom: 40px;
-`
-
-const ImagePreloader = styled.img.attrs({width: 0, height: 0})`
-  display: none;
 `
