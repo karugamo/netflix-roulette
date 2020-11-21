@@ -5,59 +5,13 @@ import movies from '../data/movies.json'
 import MovieThumbnail from './components/MovieThumbnail'
 import {Movie} from './types'
 import Filter from './components/Filter'
-
-const CardsContainer = styled.div`
-  position: relative;
-  width: 872px;
-  transform-style: preserve-3d;
-`
-
-const CardContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  transition: transform 0.5s ease-out, opacity 0.5s ease-in;
-  transform-origin: 0 0;
-`
-
-const positions = [
-  {
-    transform:
-      'perspective(0px) rotateZ(0deg) rotateX(0deg) translateZ(0px) scale(1)',
-    display: 'flex'
-  },
-  {
-    transform:
-      'perspective(0px) rotateZ(1deg) translateX(0px) translateY(40px) translateZ(-10px) rotateX(0deg) scale(0.9)',
-    display: 'flex'
-  },
-  {
-    transform:
-      'perspective(0px) rotateZ(2deg) translateX(0px) translateY(80px) translateZ(-20px) rotateX(0deg)scale(0.8)',
-    display: 'flex'
-  },
-  {
-    transform:
-      'perspective(0px) rotateZ(2deg) translateX(0px) translateY(80px) translateZ(-20px) rotateX(0deg)scale(0.8)',
-    display: 'none'
-  },
-  {
-    transform:
-      'perspective(0px) rotateZ(-20deg) rotateX(0deg) translateZ(10px) translateY(-500px) scale(1)',
-    opacity: 0,
-    display: 'flex'
-  }
-]
-
-function getStyleForPosition(position: number) {
-  return positions[position % positions.length]
-}
+import CardStack from './components/CardStack'
+import SpinButton from './components/SpinButton'
 
 export default function App() {
   const [moviePool, setMoviePool] = useState(randomEndlessNoRepeat(movies))
 
-  const [currentPosition, setCurrentPosition] = useState(0)
+  const [topPosition, setTopPosition] = useState(0)
 
   const [moviePositions, setMoviePositions] = useState<Movie[]>([
     getRandomMovie(),
@@ -70,46 +24,15 @@ export default function App() {
   return (
     <Main>
       <Title>Netflix Roulette</Title>
-      <Text>
-        Ever feel like you’re not finding new movies when browsing Netflix?
-        You’re not sure what to watch and you want to make sure to draw from the
-        full catalogue and not be restricted by the official recommendation?
-        Spin the Netflix Roulette to find random Movies that are available on
-        Netflix. It draws from the top 1000 movies on Netflix by IMDb rating.
-      </Text>
       <Filter onChange={onFilterChange} movies={movies} />
-      <CardsContainer>
-        <CardContainer
-          key="pos-0"
-          style={getStyleForPosition(currentPosition + 0)}
-        >
-          <MovieThumbnail movie={moviePositions[0]} onSpin={spin} />
-        </CardContainer>
-        <CardContainer
-          key="pos-1"
-          style={getStyleForPosition(currentPosition + 1)}
-        >
-          <MovieThumbnail movie={moviePositions[1]} onSpin={spin} />
-        </CardContainer>
-        <CardContainer
-          key="pos-2"
-          style={getStyleForPosition(currentPosition + 2)}
-        >
-          <MovieThumbnail movie={moviePositions[2]} onSpin={spin} />
-        </CardContainer>
-        <CardContainer
-          key="pos-3"
-          style={getStyleForPosition(currentPosition + 3)}
-        >
-          <MovieThumbnail movie={moviePositions[3]} onSpin={spin} />
-        </CardContainer>
-        <CardContainer
-          key="pos-4"
-          style={getStyleForPosition(currentPosition + 4)}
-        >
-          <MovieThumbnail movie={moviePositions[4]} onSpin={spin} />
-        </CardContainer>
-      </CardsContainer>
+      <CardStack
+        topPosition={topPosition}
+        Component={MovieThumbnail}
+        elementProps={moviePositions.map((movie) => ({movie}))}
+      />
+      <ButtonContainer>
+        <SpinButton onPress={spin} />
+      </ButtonContainer>
     </Main>
   )
 
@@ -121,12 +44,12 @@ export default function App() {
   function spin() {
     setMoviePositions((moviePositions) =>
       moviePositions.map((movie, index) =>
-        index === currentPosition ? getRandomMovie() : movie
+        index === topPosition ? getRandomMovie() : movie
       )
     )
 
-    setCurrentPosition((position) => {
-      if (!positions[position - 1]) return positions.length - 1
+    setTopPosition((position) => {
+      if (position === 0) return 4
       return position - 1
     })
   }
@@ -159,8 +82,7 @@ const Title = styled.h1`
   margin: 10px;
 `
 
-const Text = styled.p`
-  width: 50%;
-  text-align: center;
-  margin-bottom: 40px;
+const ButtonContainer = styled.div`
+  width: 200px;
+  padding-top: 15px;
 `
