@@ -9,6 +9,7 @@ import Filter from './components/Filter'
 const CardsContainer = styled.div`
   position: relative;
   width: 872px;
+  transform-style: preserve-3d;
 `
 
 const CardContainer = styled.div`
@@ -16,27 +17,36 @@ const CardContainer = styled.div`
   top: 0;
   left: 0;
 
-  transition: transform 1s;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-in;
+  transform-origin: 0 0;
 `
 
 const positions = [
   {
-    zIndex: 3,
-    transform: 'perspective(0px) rotateZ(0deg)'
-  },
-  {
-    zIndex: 2,
-    transform: 'perspective(0px) rotateZ(5deg) translateX(0px) translateY(40px)'
-  },
-  {
-    zIndex: 1,
     transform:
-      'perspective(0px) rotateZ(10deg) translateX(0px) translateY(80px)'
+      'perspective(0px) rotateZ(0deg) rotateX(0deg) translateZ(0px) scale(1)',
+    display: 'flex'
   },
   {
-    zIndex: 0,
     transform:
-      'perspective(0px) rotateZ(10deg) translateX(0px) translateY(80px)'
+      'perspective(0px) rotateZ(1deg) translateX(0px) translateY(40px) translateZ(-10px) rotateX(0deg) scale(0.9)',
+    display: 'flex'
+  },
+  {
+    transform:
+      'perspective(0px) rotateZ(2deg) translateX(0px) translateY(80px) translateZ(-20px) rotateX(0deg)scale(0.8)',
+    display: 'flex'
+  },
+  {
+    transform:
+      'perspective(0px) rotateZ(2deg) translateX(0px) translateY(80px) translateZ(-20px) rotateX(0deg)scale(0.8)',
+    display: 'none'
+  },
+  {
+    transform:
+      'perspective(0px) rotateZ(-20deg) rotateX(0deg) translateZ(10px) translateY(-500px) scale(1)',
+    opacity: 0,
+    display: 'flex'
   }
 ]
 
@@ -50,6 +60,7 @@ export default function App() {
   const [currentPosition, setCurrentPosition] = useState(0)
 
   const [moviePositions, setMoviePositions] = useState<Movie[]>([
+    getRandomMovie(),
     getRandomMovie(),
     getRandomMovie(),
     getRandomMovie(),
@@ -91,6 +102,12 @@ export default function App() {
           style={getStyleForPosition(currentPosition + 3)}
         >
           <MovieThumbnail movie={moviePositions[3]} onSpin={spin} />
+        </CardContainer>
+        <CardContainer
+          key="pos-4"
+          style={getStyleForPosition(currentPosition + 4)}
+        >
+          <MovieThumbnail movie={moviePositions[4]} onSpin={spin} />
         </CardContainer>
       </CardsContainer>
     </Main>
