@@ -11,7 +11,7 @@ type FilterProps = {
 }
 
 export default function Filter({onChange, movies}: FilterProps) {
-  const [selectedGenres, setSelectedGenres] = useState<Option[]>(genreOptions)
+  const [selectedGenres, setSelectedGenres] = useState<Option[]>([])
   const [selectedLanguages, setSelectedLanguages] = useState<Option[]>([
     {value: 'en', label: 'English'}
   ])
