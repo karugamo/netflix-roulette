@@ -39,6 +39,13 @@ export default function App() {
   function onFilterChange(filteredMovies: Movie[]) {
     const newMoviePool = randomEndlessNoRepeat(filteredMovies)
     setMoviePool(newMoviePool)
+    setMoviePositions([
+      newMoviePool.next().value,
+      newMoviePool.next().value,
+      newMoviePool.next().value,
+      newMoviePool.next().value,
+      newMoviePool.next().value
+    ])
   }
 
   function spin() {
