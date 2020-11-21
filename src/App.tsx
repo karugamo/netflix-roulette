@@ -42,7 +42,7 @@ export default function App() {
   }
 
   function spin() {
-    setMoviePositions((moviePositions) =>
+    setMoviePositions(
       moviePositions.map((movie, index) =>
         index === topPosition ? getRandomMovie() : movie
       )
@@ -80,6 +80,7 @@ const Main = styled.div`
 const Title = styled.h1`
   font-size: 50px;
   margin: 10px;
+  color: #222222;
 `
 
 const ButtonContainer = styled.div`

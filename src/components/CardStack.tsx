@@ -36,23 +36,27 @@ const positions = [
   {
     transform:
       'perspective(0px) rotateZ(1deg) translateX(0px) translateY(40px) translateZ(-10px) rotateX(0deg) scale(0.9)',
-    display: 'flex'
+    display: 'flex',
+    pointerEvents: 'none'
   },
   {
     transform:
       'perspective(0px) rotateZ(2deg) translateX(0px) translateY(80px) translateZ(-20px) rotateX(0deg)scale(0.8)',
-    display: 'flex'
+    display: 'flex',
+    pointerEvents: 'none'
   },
   {
     transform:
       'perspective(0px) rotateZ(2deg) translateX(0px) translateY(80px) translateZ(-20px) rotateX(0deg)scale(0.8)',
-    display: 'none'
+    display: 'none',
+    pointerEvents: 'none'
   },
   {
     transform:
       'perspective(0px) rotateZ(-20deg) rotateX(0deg) translateZ(10px) translateY(-500px) scale(1)',
     opacity: 0,
-    display: 'flex'
+    display: 'flex',
+    pointerEvents: 'none'
   }
 ]
 

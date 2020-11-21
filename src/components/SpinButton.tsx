@@ -12,16 +12,16 @@ const Button = styled.button`
   width: 90%;
   color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
-  font-size: 36px;
+  font-size: 28px;
   height: 47px;
   cursor: pointer;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
   user-select: none;
   text-align: center;
 
   :active {
-    transform: translate(5px, 5px);
-    box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
+    transform: translate(0px, 5px);
+    box-shadow: 0 -5px 10px 10px rgba(0, 0, 0, 0.1);
     background-color: #a00505;
   }
 
