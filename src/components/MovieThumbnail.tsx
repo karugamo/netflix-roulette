@@ -28,7 +28,7 @@ export default function MovieThumbnail({movie}: MovieThumbnnailProps) {
   return (
     <Container>
       <ImageLink target="_blank" href={netflixLink}>
-        <Image key={image} src={image} alt={title} />
+        <Image key={image} src={image} alt={title[i18n.language]} />
       </ImageLink>
       <RightContainer>
         <Info>

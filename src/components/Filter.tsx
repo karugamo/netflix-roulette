@@ -66,7 +66,7 @@ export default function Filter({onChange, movies}: FilterProps) {
     return (
       intersection(
         movie.genres,
-        selectedGenres.map((option) => option.label)
+        selectedGenres.map((option) => option.value)
       ).length > 0
     )
   }
