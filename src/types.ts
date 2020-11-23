@@ -1,8 +1,8 @@
 export type Movie = {
   id: string
-  title: string
+  title: {[language: string]: string}
   year: number
-  genres: string[]
+  genres: number[]
   rating: number
   image: string
   runtime: number

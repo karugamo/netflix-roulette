@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {Movie} from '../types'
 import {useTranslation} from 'react-i18next'
 import {getLanguageName} from '../i18n'
+import {getGenreName} from '../const'
 
 type MovieThumbnnailProps = {
   movie: Movie
@@ -10,7 +11,7 @@ type MovieThumbnnailProps = {
 }
 
 export default function MovieThumbnail({movie}: MovieThumbnnailProps) {
-  const {t} = useTranslation()
+  const {t, i18n} = useTranslation()
 
   const {
     title,
@@ -32,14 +33,14 @@ export default function MovieThumbnail({movie}: MovieThumbnnailProps) {
       <RightContainer>
         <Info>
           <Link target="_blank" href={netflixLink}>
-            <Title>{title}</Title>
+            <Title>{title[i18n.language]}</Title>
             <Year>({year})</Year>
           </Link>
           <Heading>{t('movie.section.genres')}</Heading>
           <Data>
             {genres.map((genre, index) => (
               <span key={genre}>
-                <span>{genre}</span>
+                <span>{getGenreName(genre)}</span>
                 {index < genres.length - 1 && <Dot> • </Dot>}
               </span>
             ))}

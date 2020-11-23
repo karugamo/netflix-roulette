@@ -21,7 +21,6 @@ async function main() {
         )
 
         movie.originalLanguage = data.original_language
-
         save('movies', movies)
       } catch (e) {
         console.log('Error with movie', movie.title, e.message)

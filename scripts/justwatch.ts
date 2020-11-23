@@ -1,8 +1,9 @@
 import got from 'got'
 import {keyBy, mapValues, range} from 'lodash'
-import {getGenreName} from '../src/const'
 import {Movie} from '../src/types'
 import {save} from './util'
+
+const languages = ['en', 'de']
 
 async function main() {
   const data = await fetchJustWatch()
@@ -13,11 +14,10 @@ async function main() {
 
 main()
 
-function selectMovie(justWatchMovie: any): Movie {
+function selectMovie(justWatchMovieLocalized: any): Movie {
   // for available data, see: https://apis.justwatch.com/content/titles/movie/56184/locale/de_DE?language=en
 
   const {
-    title,
     genre_ids,
     scoring,
     original_release_year,
@@ -25,7 +25,11 @@ function selectMovie(justWatchMovie: any): Movie {
     poster,
     runtime,
     external_ids
-  } = justWatchMovie
+  } = justWatchMovieLocalized.en
+
+  const title = Object.fromEntries(
+    languages.map((lang) => [lang, justWatchMovieLocalized[lang].title])
+  )
 
   return {
     id: offers[0].urls.standard_web.split('/').pop(),
@@ -33,7 +37,7 @@ function selectMovie(justWatchMovie: any): Movie {
     ids: mapValues(keyBy(external_ids, 'provider'), 'external_id'),
     runtime,
     year: original_release_year,
-    genres: genre_ids.map(getGenreName),
+    genres: genre_ids,
     rating: scoring.find(({provider_type}) => provider_type === 'imdb:score')
       .value,
     image: `https://images.justwatch.com${poster.slice(
@@ -70,17 +74,25 @@ async function fetchJustWatch() {
     matching_offers_only: true
   }
 
-  let data = []
+  const data = {}
 
   for (const page of range(1, 11)) {
     query.page = page
     const encodedQuery = encodeURI(JSON.stringify(query))
-    const {items}: any = await got(
-      `https://apis.justwatch.com/content/titles/de_DE/popular?body=${encodedQuery}&language=en`
-    ).json()
 
-    data = data.concat(items)
+    for (const lang of languages) {
+      const {items}: any = await got(
+        `https://apis.justwatch.com/content/titles/de_DE/popular?body=${encodedQuery}&language=${lang}`
+      ).json()
+
+      for (const item of items) {
+        data[item.id] = {
+          ...data[item.id],
+          [lang]: item
+        }
+      }
+    }
   }
 
-  return data
+  return Object.values(data)
 }
