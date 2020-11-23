@@ -116,4 +116,4 @@ var r,e;module.exports=require("./factoryWithThrowingShims")();
 },{"lodash":"HJaA","react":"HdMw","styled-components":"OuUI","../data/movies.json":"wE6u","./components/MovieThumbnail":"E9JV","./components/Filter":"OPuj","./components/CardStack":"X1b5","./components/SpinButton":"xZEV"}],"zo2T":[function(require,module,exports) {
 "use strict";var e=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0});var t=e(require("react")),r=e(require("react-dom")),u=e(require("./src/App"));r.default.render(t.default.createElement(u.default,null),document.getElementById("root"));
 },{"react":"HdMw","react-dom":"X9zx","./src/App":"Ru8j"}]},{},["zo2T"], null)
-//# sourceMappingURL=/netflix-roulette/netflix-roulette.a248cf84.js.map
+//# sourceMappingURL=/netflix-roulette.a248cf84.js.map
