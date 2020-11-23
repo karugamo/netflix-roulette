@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html --public-url '/netflix-roulette'",
+    "build": "parcel build index.html",
     "flixboss": "ts-node ./scripts/flixboss",
     "justwatch": "ts-node ./scripts/justwatch",
     "tmdb": "ts-node ./scripts/tmdb"
