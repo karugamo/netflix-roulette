@@ -1,5 +1,6 @@
 import {intersection} from 'lodash'
 import React, {useEffect, useState} from 'react'
+import {useTranslation} from 'react-i18next'
 import styled from 'styled-components'
 import {genreOptions, languageOptions} from '../const'
 import {Movie, Option} from '../types'
@@ -16,6 +17,8 @@ export default function Filter({onChange, movies}: FilterProps) {
     {value: 'en', label: 'English'}
   ])
 
+  const {t} = useTranslation()
+
   useEffect(() => {
     onFilterChange()
   }, [selectedGenres, selectedLanguages])
@@ -23,7 +26,7 @@ export default function Filter({onChange, movies}: FilterProps) {
   return (
     <Container>
       <FilterContainer>
-        <Label>Genres</Label>
+        <Label>{t('filter.genres')}</Label>
         <MultiSelect
           options={genreOptions}
           selectedOptions={selectedGenres}
@@ -31,7 +34,7 @@ export default function Filter({onChange, movies}: FilterProps) {
         />
       </FilterContainer>
       <FilterContainer>
-        <Label>Original Languages</Label>
+        <Label>{t('filter.originalLanguages')}</Label>
         <MultiSelect
           setSelectedOptions={setSelectedLanguages}
           options={languageOptions}

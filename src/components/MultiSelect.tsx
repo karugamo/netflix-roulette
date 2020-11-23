@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import ReactSelect, {components, OptionProps} from 'react-select'
 import CheckboxIcon from './CheckboxIcon'
 import {Option as OptionType} from '../types'
+import {useTranslation} from 'react-i18next'
 
 type MultiSelectProps = {
   options: OptionType[]
@@ -15,6 +16,8 @@ export default function MultiSelect({
   selectedOptions,
   setSelectedOptions
 }: MultiSelectProps) {
+  const {t} = useTranslation()
+
   return (
     <Select
       options={options}
@@ -23,7 +26,7 @@ export default function MultiSelect({
       isClearable={options.length !== selectedOptions.length}
       isSearchable={false}
       onChange={onSelectChange}
-      placeholder="Filter by Genre..."
+      placeholder=""
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       components={{Option, ValueContainer, MultiValue, Placeholder}}
@@ -39,36 +42,6 @@ export default function MultiSelect({
   }
 }
 
-function getFilterText(options: string[], selectedOptions: string[]) {
-  const notSelectedOptions = options.filter(
-    (label) => !selectedOptions.includes(label)
-  )
-
-  if (
-    selectedOptions.length === options.length ||
-    selectedOptions.length === 0
-  ) {
-    return `All`
-  }
-  if (selectedOptions.length === 1) {
-    return `${selectedOptions[0]}`
-  }
-
-  if (selectedOptions.length === 2) {
-    return `${selectedOptions[0]} & ${selectedOptions[1]}`
-  }
-
-  if (notSelectedOptions.length <= 2) {
-    return `All except ${notSelectedOptions.join(', ')}`
-  }
-
-  if (notSelectedOptions.length < options.length / 2) {
-    return `Excluded ${notSelectedOptions.length}`
-  }
-
-  return ` ${selectedOptions.length} Selected`
-}
-
 function MultiValue() {
   return <></>
 }
@@ -78,6 +51,8 @@ function Placeholder() {
 }
 
 function ValueContainer(props) {
+  const {t} = useTranslation()
+
   const {getValue, options, children} = props
   const selectedOptions: any[] = (getValue() || []).map(({label}) => label)
 
@@ -92,6 +67,24 @@ function ValueContainer(props) {
       {children}
     </components.ValueContainer>
   )
+
+  function getFilterText(options: string[], selectedOptions: string[]) {
+    if (
+      selectedOptions.length === options.length ||
+      selectedOptions.length === 0
+    ) {
+      return t('filter.select.all')
+    }
+    if (selectedOptions.length === 1) {
+      return `${selectedOptions[0]}`
+    }
+
+    if (selectedOptions.length === 2) {
+      return `${selectedOptions[0]} & ${selectedOptions[1]}`
+    }
+
+    return t('filter.select.nSelected', {count: selectedOptions.length})
+  }
 }
 
 const ValueContainerText = styled.span`

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {Movie} from '../types'
 import ISO6391 from 'iso-639-1'
+import {useTranslation} from 'react-i18next'
 
 type MovieThumbnnailProps = {
   movie: Movie
@@ -9,6 +10,8 @@ type MovieThumbnnailProps = {
 }
 
 export default function MovieThumbnail({movie}: MovieThumbnnailProps) {
+  const {t} = useTranslation()
+
   const {
     title,
     image,
@@ -32,23 +35,23 @@ export default function MovieThumbnail({movie}: MovieThumbnnailProps) {
             <Title>{title}</Title>
             <Year>({year})</Year>
           </Link>
-          <Heading>GENRES</Heading>
+          <Heading>{t('movie.section.genres')}</Heading>
           <Data>
             {genres.map((genre, index) => (
-              <>
+              <span key={genre}>
                 <span>{genre}</span>
                 {index < genres.length - 1 && <Dot> • </Dot>}
-              </>
+              </span>
             ))}
           </Data>
           <Divider />
-          <Heading>IMDB RATING</Heading>
+          <Heading>{t('movie.section.imdbRating')}</Heading>
           <Data>{rating?.toFixed(1)}</Data>
           <Divider />
-          <Heading>RUNTIME</Heading>
+          <Heading>{t('movie.section.runtime')}</Heading>
           <Data>{formatDuration(runtime)}</Data>
           <Divider />
-          <Heading>ORIGINAL LANGUAGE</Heading>
+          <Heading>{t('movie.section.originalLanguage')}</Heading>
           <Data>{ISO6391.getName(originalLanguage)}</Data>
           <Divider />
         </Info>
@@ -131,6 +134,7 @@ const Image = styled.img`
 `
 
 const Heading = styled.h3`
+  text-transform: uppercase;
   font-size: 14px;
   color: #ddd;
 `

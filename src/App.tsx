@@ -7,6 +7,7 @@ import {Movie} from './types'
 import Filter from './components/Filter'
 import CardStack from './components/CardStack'
 import SpinButton from './components/SpinButton'
+import {useTranslation} from 'react-i18next'
 
 export default function App() {
   const [moviePool, setMoviePool] = useState(randomEndlessNoRepeat(movies))
@@ -21,9 +22,11 @@ export default function App() {
     getRandomMovie()
   ])
 
+  const {t} = useTranslation()
+
   return (
     <Main>
-      <Title>Netflix Roulette</Title>
+      <Title>{t('title')}</Title>
       <Filter onChange={onFilterChange} movies={movies} />
       <CardStack
         topPosition={topPosition}

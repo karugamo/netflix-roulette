@@ -1,12 +1,15 @@
 import React from 'react'
+import {useTranslation} from 'react-i18next'
 import styled from 'styled-components'
 
 export default function SpinButton({onPress}) {
-  return <Button onClick={onPress}>SPIN</Button>
+  const {t} = useTranslation()
+  return <Button onClick={onPress}>{t('spin')}</Button>
 }
 
 const Button = styled.button`
   all: unset;
+  text-transform: uppercase;
   padding: 5px 20px;
   background-color: #e50a15;
   width: 90%;
