@@ -1,6 +1,5 @@
 import {keyBy} from 'lodash'
-
-import ISO6391 from 'iso-639-1'
+import {getLanguageName} from './i18n'
 
 const languages = [
   'en',
@@ -40,7 +39,7 @@ const languages = [
 
 export const languageOptions = languages.map((code) => ({
   value: code,
-  label: ISO6391.getName(code) || code
+  label: getLanguageName(code) || code
 }))
 
 export const genres = [

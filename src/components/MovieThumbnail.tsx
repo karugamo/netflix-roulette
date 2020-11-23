@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import {Movie} from '../types'
-import ISO6391 from 'iso-639-1'
 import {useTranslation} from 'react-i18next'
+import {getLanguageName} from '../i18n'
 
 type MovieThumbnnailProps = {
   movie: Movie
@@ -52,7 +52,7 @@ export default function MovieThumbnail({movie}: MovieThumbnnailProps) {
           <Data>{formatDuration(runtime)}</Data>
           <Divider />
           <Heading>{t('movie.section.originalLanguage')}</Heading>
-          <Data>{ISO6391.getName(originalLanguage)}</Data>
+          <Data>{getLanguageName(originalLanguage)}</Data>
           <Divider />
         </Info>
       </RightContainer>

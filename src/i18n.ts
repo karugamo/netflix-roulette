@@ -1,5 +1,9 @@
 import i18n from 'i18next'
 import {initReactI18next} from 'react-i18next'
+import languages from '@cospired/i18n-iso-languages'
+
+languages.registerLocale(require('@cospired/i18n-iso-languages/langs/en.json'))
+languages.registerLocale(require('@cospired/i18n-iso-languages/langs/de.json'))
 
 const resources = {
   en: {
@@ -13,7 +17,8 @@ const resources = {
       'movie.section.imdbRating': 'IMDb Rating',
       'movie.section.runtime': 'Runtime',
       'movie.section.originalLanguage': 'Original Language',
-      spin: 'Next'
+      spin: 'Next',
+      cn: 'Cantonese'
     }
   },
   de: {
@@ -27,7 +32,8 @@ const resources = {
       'movie.section.imdbRating': 'IMDb Bewertung',
       'movie.section.runtime': 'Filmlänge',
       'movie.section.originalLanguage': 'Originalsprache',
-      spin: 'Weiter'
+      spin: 'Weiter',
+      cn: 'Kantonesisch'
     }
   }
 }
@@ -43,3 +49,7 @@ i18n.use(initReactI18next).init({
 })
 
 export default i18n
+
+export function getLanguageName(isoLanguage: string) {
+  return languages.getName(isoLanguage, i18n.language) || i18n.t(isoLanguage)
+}

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/flexiproducts/netflix-roulette#readme",
   "dependencies": {
+    "@cospired/i18n-iso-languages": "^2.1.2",
     "@types/jsdom": "^16.2.5",
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.7",

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 import styled from 'styled-components'
 import {genreOptions, languageOptions} from '../const'
+import {getLanguageName} from '../i18n'
 import {Movie, Option} from '../types'
 import MultiSelect from './MultiSelect'
 
@@ -14,7 +15,8 @@ type FilterProps = {
 export default function Filter({onChange, movies}: FilterProps) {
   const [selectedGenres, setSelectedGenres] = useState<Option[]>([])
   const [selectedLanguages, setSelectedLanguages] = useState<Option[]>([
-    {value: 'en', label: 'English'}
+    {value: 'en', label: getLanguageName('en')},
+    {value: 'de', label: getLanguageName('de')}
   ])
 
   const {t} = useTranslation()
