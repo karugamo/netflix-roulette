@@ -1,4 +1,5 @@
-import {env, load, save} from './util'
+import {load, save} from './util'
+import {env} from './env'
 import got from 'got'
 import {Movie} from '../src/types'
 

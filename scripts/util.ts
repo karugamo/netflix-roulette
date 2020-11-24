@@ -1,10 +1,5 @@
 import {writeFileSync} from 'fs'
 import {resolve} from 'path'
-import {cleanEnv, str} from 'envalid'
-
-export const env = cleanEnv(process.env, {
-  TMDB_KEY: str()
-})
 
 export function load(name: string) {
   return require(`../data/${name}.json`)
