@@ -70,6 +70,24 @@ export default function App() {
 }
 
 function* randomEndlessNoRepeat(moviePool: Movie[]): Generator<Movie> {
+  if (!moviePool || moviePool.length === 0) {
+    while (true) {
+      yield {
+        id: '70155547',
+        title: {
+          en: 'Not Found',
+          de: 'Not Found'
+        },
+        year: 404,
+        rating: 4.0,
+        genres: [6],
+        runtime: 40 * 60 + 4,
+        originalLanguage: 'en',
+        image: 'https://images.justwatch.com/poster/139055178/s592'
+      }
+    }
+  }
+
   while (true) {
     let shuffledMovies = shuffle(moviePool)
     for (const movie of shuffledMovies) {
