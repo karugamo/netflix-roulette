@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - env: 
-          TMDB_KEY: ${{ secrets.TMDB_KEY }}
       - run: |
           npm ci
           npm run justwatch
@@ -22,3 +20,5 @@ jobs:
           git add data
           git commit -m "Updated data"
           git push
+        env: 
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
