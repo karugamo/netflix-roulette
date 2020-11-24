@@ -10,6 +10,9 @@ async function main() {
   const movies = data.map(selectMovie)
   console.log('Fetched', movies.length, 'movies')
   save('movies', movies)
+
+  const genres = await fetchGenreNames()
+  save('genres', genres)
 }
 
 main()
@@ -95,4 +98,26 @@ async function fetchJustWatch() {
   }
 
   return Object.values(data)
+}
+
+async function fetchGenreNames() {
+  const genreByLanguage = {}
+  for (const lang of languages) {
+    const translations: JustWatchGenre[] = await got(
+      `https://apis.justwatch.com/content/genres/locale/de_DE?language=${lang}`
+    ).json()
+    genreByLanguage[lang] = mapValues(
+      keyBy(translations, 'id'),
+      (genre) => genre.translation
+    )
+  }
+  return genreByLanguage
+}
+
+type JustWatchGenre = {
+  id: number
+  short_name: string
+  technical_name: string
+  translation: string
+  slug: string
 }

@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {Movie} from '../types'
 import {useTranslation} from 'react-i18next'
-import {getLanguageName} from '../i18n'
-import {getGenreName} from '../const'
+import {getGenreName, getLanguageName} from '../i18n'
 
 type MovieThumbnnailProps = {
   movie: Movie

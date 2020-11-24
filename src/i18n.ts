@@ -1,6 +1,8 @@
 import i18n from 'i18next'
 import {initReactI18next} from 'react-i18next'
 import languages from '@cospired/i18n-iso-languages'
+import genreTranslations from '../data/genres.json'
+import {Option} from './types'
 
 languages.registerLocale(require('@cospired/i18n-iso-languages/langs/en.json'))
 languages.registerLocale(require('@cospired/i18n-iso-languages/langs/de.json'))
@@ -53,3 +55,14 @@ export default i18n
 export function getLanguageName(isoLanguage: string) {
   return languages.getName(isoLanguage, i18n.language) || i18n.t(isoLanguage)
 }
+
+export function getGenreName(genreId: number) {
+  return genreTranslations[i18n.language][genreId]
+}
+
+export const genreOptions: Option[] = Object.entries(
+  genreTranslations[i18n.language]
+).map(([id, label]) => ({
+  value: Number(id),
+  label: label as string
+}))

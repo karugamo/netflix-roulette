@@ -54,5 +54,8 @@
     "hooks": {
       "pre-commit": "eslint --fix"
     }
-  }
+  },
+  "browserslist": [
+    "since 2017-06"
+  ]
 }
