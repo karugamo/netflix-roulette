@@ -14,7 +14,7 @@ export default function App() {
 
   const [topPosition, setTopPosition] = useState(0)
 
-  const [moviePositions, setMoviePositions] = useState<Movie[]>([
+  const [moviePositions, setMoviePositions] = useState<Movie[]>(() => [
     getRandomMovie(),
     getRandomMovie(),
     getRandomMovie(),
