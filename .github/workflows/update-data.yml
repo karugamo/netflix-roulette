@@ -11,14 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          npm ci
-          npm run justwatch
-          npm run tmdb
-          git config user.name GitHub Butler
-          git config user.email github-bot@karugamo.agency
+      - name: Install Dependencies
+        run: npm ci
+      - name: Fetch JustWatch
+        run: npm run justwatch
+      - name: Fetch TMDB
+        run: npm run tmdb
+        env: 
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+      - name: Commit and Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add data
           git commit -m "Updated data"
           git push
-        env: 
-          TMDB_KEY: ${{ secrets.TMDB_KEY }}
