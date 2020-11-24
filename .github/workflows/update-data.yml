@@ -6,10 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  update-data:
+    name: Update Data
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - env: 
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
       - run: |
           npm ci
           npm run justwatch
