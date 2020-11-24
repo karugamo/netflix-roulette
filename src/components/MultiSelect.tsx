@@ -16,8 +16,6 @@ export default function MultiSelect({
   selectedOptions,
   setSelectedOptions
 }: MultiSelectProps) {
-  const {t} = useTranslation()
-
   return (
     <Select
       options={options}
@@ -101,6 +99,11 @@ function Option({children, isSelected, ...props}: OptionProps<any>) {
 
 const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
   width: 400px;
+
+  @media (max-width: 400px) {
+    width: 90vw;
+  }
+
   margin-bottom: 10px;
 
   .react_select__option {

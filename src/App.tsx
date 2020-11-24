@@ -102,12 +102,12 @@ const Main = styled.div`
   flex-direction: column;
   height: 100%;
   color: #242422;
-  overflow-y: hidden;
 `
 
 const Title = styled.h1`
   font-size: 50px;
   margin: 10px;
+  text-align: center;
   color: #222222;
 `
 

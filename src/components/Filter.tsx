@@ -78,6 +78,12 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   width: 872px;
+
+  @media (max-width: 872px) {
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const Label = styled.div`
