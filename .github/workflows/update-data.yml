@@ -1,0 +1,17 @@
+on:
+  schedule:
+    - cron:  '0 8 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          npm run justwatch
+          npm run tmdb
+          git config user.name GitHub Butler
+          git config user.email github-bot@karugamo.agency
+          git add data
+          git commit -m "Updated data"
+          git push
