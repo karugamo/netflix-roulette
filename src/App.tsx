@@ -109,9 +109,17 @@ const Title = styled.h1`
   margin: 10px;
   text-align: center;
   color: #222222;
+  @media (max-width: 900px) {
+    font-size: 30px;
+  }
 `
 
 const ButtonContainer = styled.div`
   width: 200px;
   padding-top: 15px;
+  @media (max-width: 872px) {
+    width: 90vw;
+    position: fixed;
+    bottom: 3vw;
+  }
 `

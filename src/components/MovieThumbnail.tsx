@@ -93,6 +93,11 @@ const RightContainer = styled.div`
   padding: 5px 20px;
   padding-left: 30px;
   padding-bottom: 5px;
+  @media (max-width: 872px) {
+    width: 90vw;
+    padding: 5vw;
+    height: initial;
+  }
 `
 
 const Info = styled.div`
@@ -131,6 +136,9 @@ const Image = styled.img`
   border-radius: 10px 0px 0px 10px;
   height: 100%;
   width: 422px;
+  @media (max-width: 872px) {
+    display: none;
+  }
 `
 
 const Heading = styled.h3`

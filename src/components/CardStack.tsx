@@ -67,6 +67,9 @@ function getStyleForPosition(position: number) {
 const Container = styled.div`
   position: relative;
   width: 872px;
+  @media (max-width: 872px) {
+    width: 100vw;
+  }
   height: 600px;
   transform-style: preserve-3d;
 `
