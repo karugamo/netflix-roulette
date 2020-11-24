@@ -1,4 +1,4 @@
-name: update-data
+name: Update Data
 
 on:
   schedule:
@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+          npm ci
           npm run justwatch
           npm run tmdb
           git config user.name GitHub Butler
