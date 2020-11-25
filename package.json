@@ -6,9 +6,9 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "flixboss": "ts-node ./scripts/flixboss",
-    "justwatch": "ts-node ./scripts/justwatch",
-    "tmdb": "ts-node ./scripts/tmdb"
+    "flixboss": "ts-node ./scripts/flixboss --unhandled-rejections=strict",
+    "justwatch": "ts-node ./scripts/justwatch --unhandled-rejections=strict",
+    "tmdb": "ts-node ./scripts/tmdb --unhandled-rejections=strict"
   },
   "repository": {
     "type": "git",
