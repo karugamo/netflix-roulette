@@ -20,7 +20,8 @@ const resources = {
       'movie.section.runtime': 'Runtime',
       'movie.section.originalLanguage': 'Original Language',
       spin: 'Next',
-      cn: 'Cantonese'
+      cn: 'Cantonese',
+      settings: 'Settings'
     }
   },
   de: {
@@ -35,7 +36,8 @@ const resources = {
       'movie.section.runtime': 'Filmlänge',
       'movie.section.originalLanguage': 'Originalsprache',
       spin: 'Weiter',
-      cn: 'Kantonesisch'
+      cn: 'Kantonesisch',
+      settings: 'Einstellungen'
     }
   }
 }

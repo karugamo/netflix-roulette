@@ -9,32 +9,37 @@ type MultiSelectProps = {
   options: OptionType[]
   selectedOptions: OptionType[]
   setSelectedOptions: (selectedOptions: OptionType[]) => void
+  label: string
 }
 
 export default function MultiSelect({
   options,
   selectedOptions,
+  label,
   setSelectedOptions
 }: MultiSelectProps) {
   return (
-    <Select
-      options={options}
-      value={selectedOptions}
-      isMulti
-      isClearable={options.length !== selectedOptions.length}
-      isSearchable={false}
-      onChange={onSelectChange}
-      placeholder=""
-      closeMenuOnSelect={false}
-      hideSelectedOptions={false}
-      components={{Option, ValueContainer, MultiValue, Placeholder}}
-    />
+    <Container>
+      <Label>{label}</Label>
+      <Select
+        options={options}
+        value={selectedOptions}
+        isMulti
+        isClearable={options.length !== selectedOptions.length}
+        isSearchable={false}
+        onChange={onSelectChange}
+        placeholder=""
+        closeMenuOnSelect={false}
+        hideSelectedOptions={false}
+        components={{Option, ValueContainer, MultiValue, Placeholder}}
+      />
+    </Container>
   )
 
   function onSelectChange(option, {action}) {
     if (!option) return
 
-    const newOptions = action === 'clear' ? options : option
+    const newOptions = action === 'clear' ? [] : option
 
     setSelectedOptions(newOptions)
   }
@@ -47,6 +52,8 @@ function MultiValue() {
 function Placeholder() {
   return <></>
 }
+
+const Container = styled.div``
 
 function ValueContainer(props) {
   const {t} = useTranslation()
@@ -155,4 +162,10 @@ const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
   .react_select__indicator-separator {
     background-color: #777777;
   }
+`
+
+const Label = styled.div`
+  font-weight: bolder;
+  margin-bottom: 4px;
+  color: #545454;
 `
