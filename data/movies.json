@@ -22782,13 +22782,13 @@
   "rating": 7.6,
   "image": "https://images.justwatch.com/poster/145343729/s592/",
   "spokenLanguages": [
-   "en",
-   "fr",
-   "la",
    "de",
-   "pt",
+   "la",
    "es",
-   "it"
+   "en",
+   "it",
+   "pt",
+   "fr"
   ],
   "originalLanguage": "en"
  },
