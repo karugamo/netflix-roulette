@@ -14391,10 +14391,10 @@
   "rating": 7.1,
   "image": "https://images.justwatch.com/poster/10102099/s592/",
   "spokenLanguages": [
-   "de",
-   "es",
    "en",
-   "yi"
+   "yi",
+   "es",
+   "de"
   ],
   "originalLanguage": "de"
  },
@@ -15689,8 +15689,8 @@
   "rating": 7.3,
   "image": "https://images.justwatch.com/poster/155886614/s592/",
   "spokenLanguages": [
-   "zh",
-   "en"
+   "en",
+   "zh"
   ],
   "originalLanguage": "en"
  },
