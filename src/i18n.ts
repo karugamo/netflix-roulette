@@ -19,6 +19,7 @@ const resources = {
       'movie.section.imdbRating': 'IMDb Rating',
       'movie.section.runtime': 'Runtime',
       'movie.section.originalLanguage': 'Original Language',
+      'filter.rating': 'Rating',
       spin: 'Next',
       cn: 'Cantonese',
       settings: 'Settings'
@@ -35,6 +36,7 @@ const resources = {
       'movie.section.imdbRating': 'IMDb Bewertung',
       'movie.section.runtime': 'Filmlänge',
       'movie.section.originalLanguage': 'Originalsprache',
+      'filter.rating': 'Bewertung',
       spin: 'Weiter',
       cn: 'Kantonesisch',
       settings: 'Einstellungen'

@@ -4,6 +4,7 @@ import ReactSelect, {components, OptionProps} from 'react-select'
 import CheckboxIcon from './CheckboxIcon'
 import {Option as OptionType} from '../types'
 import {useTranslation} from 'react-i18next'
+import Label from './Label'
 
 type MultiSelectProps = {
   options: OptionType[]
@@ -162,10 +163,4 @@ const Select = styled(ReactSelect).attrs({classNamePrefix: 'react_select'})`
   .react_select__indicator-separator {
     background-color: #777777;
   }
-`
-
-const Label = styled.div`
-  font-weight: bolder;
-  margin-bottom: 4px;
-  color: #545454;
 `

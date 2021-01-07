@@ -7,6 +7,7 @@ import {genreOptions, getLanguageName} from '../i18n'
 import {Movie, Option} from '../types'
 import MultiSelect from './MultiSelect'
 import Modal from './Modal'
+import RatingSlider from './RatingSlider'
 
 type FilterProps = {
   movies: Movie[]
@@ -15,6 +16,7 @@ type FilterProps = {
 
 export default function Filter({onChange, movies}: FilterProps) {
   const [selectedGenres, setSelectedGenres] = useState<Option[]>([])
+  const [ratingRange, setRatingRange] = useState([7, 10])
   const [selectedLanguages, setSelectedLanguages] = useState<Option[]>([
     {value: 'en', label: getLanguageName('en')},
     {value: 'de', label: getLanguageName('de')}
@@ -25,7 +27,7 @@ export default function Filter({onChange, movies}: FilterProps) {
 
   useEffect(() => {
     onFilterChange()
-  }, [selectedGenres, selectedLanguages])
+  }, [selectedGenres, selectedLanguages, ratingRange])
 
   return (
     <Container>
@@ -34,6 +36,11 @@ export default function Filter({onChange, movies}: FilterProps) {
         options={genreOptions}
         selectedOptions={selectedGenres}
         setSelectedOptions={setSelectedGenres}
+      />
+      <RatingSlider
+        value={ratingRange}
+        onChange={setRatingRange}
+        label={t('filter.rating')}
       />
       <SettingsButton onClick={() => setSettingsOpen(true)} />
       {settingsOpen && (
@@ -64,9 +71,18 @@ export default function Filter({onChange, movies}: FilterProps) {
   }
 
   function onFilterChange() {
-    const filteredMovies = movies.filter(genreFilter).filter(languageFilter)
+    const filteredMovies = movies
+      .filter(genreFilter)
+      .filter(languageFilter)
+      .filter(ratingFilter)
 
     onChange(filteredMovies)
+  }
+
+  function ratingFilter(movie: Movie) {
+    if (ratingRange.length === 0) return true
+
+    return movie.rating >= ratingRange[0] && movie.rating <= ratingRange[1]
   }
 
   function languageFilter(movie: Movie) {
