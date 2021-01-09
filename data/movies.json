@@ -11933,8 +11933,8 @@
   "rating": 7.1,
   "image": "https://images.justwatch.com/poster/139215219/s592/",
   "spokenLanguages": [
-   "lv",
-   "tr"
+   "tr",
+   "lv"
   ],
   "originalLanguage": "tr"
  },
@@ -19818,8 +19818,9 @@
   "rating": 7.3,
   "image": "https://images.justwatch.com/poster/122327976/s592/",
   "spokenLanguages": [
-   "de",
    "en",
+   "de",
+   "he",
    "yi"
   ],
   "originalLanguage": "de"
