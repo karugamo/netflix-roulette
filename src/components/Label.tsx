@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Label = styled.div`
   font-weight: bolder;
   margin-bottom: 4px;
-  color: #545454;
-`
+  color: white;
+`;
 
-export default Label
+export default Label;
