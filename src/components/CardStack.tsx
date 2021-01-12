@@ -1,17 +1,19 @@
 import {times} from 'lodash'
 import React from 'react'
 import styled from 'styled-components'
+import {Movie} from '../types'
+import MovieThumbnail from './MovieThumbnail'
 
 type CardStackProps = {
-  Component: React.ElementType
-  elementProps: object[]
+  movies: Movie[]
   topPosition: number
+  spinPosition: number
 }
 
 export default function CardStack({
-  Component,
-  elementProps,
-  topPosition
+  movies,
+  topPosition,
+  spinPosition
 }: CardStackProps) {
   return (
     <Container>
@@ -20,14 +22,14 @@ export default function CardStack({
           key={`pos-${pos}`}
           style={getStyleForPosition(topPosition + pos)}
         >
-          <Component {...elementProps[pos]} />
+          <MovieThumbnail movie={movies[topPosition + pos]} />
         </CardContainer>
       ))}
     </Container>
   )
 }
 
-const positions = [
+const positions: React.CSSProperties[] = [
   {
     transform:
       'perspective(0px) rotateZ(0deg) rotateX(0deg) translateZ(0px) scale(1)',

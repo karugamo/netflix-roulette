@@ -6,7 +6,6 @@ import {getGenreName, getLanguageName} from '../i18n'
 
 type MovieThumbnnailProps = {
   movie: Movie
-  onSpin: () => void
 }
 
 export default function MovieThumbnail({movie}: MovieThumbnnailProps) {
