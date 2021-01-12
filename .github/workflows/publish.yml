@@ -1,28 +1,40 @@
 name: publish
 
-on:
-  push:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-  
-    - name: Build
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - run: npm install
-    - run: npm run build
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: dist
-        CLEAN: true
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: branch
+
+      - name: Build
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - run: npm install
+      - run: npm run build
+
+      - name: Deploy to Production
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        if: steps.branch.outputs.branch == 'master'
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
+
+      - name: Deploy to Staging
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        if: steps.branch.outputs.branch != 'master'
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
+          TARGET_FOLDER: staging/${{steps.branch.outputs.branch}}
