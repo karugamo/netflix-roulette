@@ -25230,10 +25230,10 @@
   "rating": 7,
   "image": "https://images.justwatch.com/poster/224381773/s592/",
   "spokenLanguages": [
-   "it",
-   "es",
    "de",
-   "fr"
+   "es",
+   "fr",
+   "it"
   ],
   "originalLanguage": "it"
  },
@@ -27390,8 +27390,8 @@
   "rating": 7.1,
   "image": "https://images.justwatch.com/poster/240767605/s592/",
   "spokenLanguages": [
-   "es",
-   "en"
+   "en",
+   "es"
   ],
   "originalLanguage": "en"
  }
