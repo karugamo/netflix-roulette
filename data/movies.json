@@ -14003,10 +14003,10 @@
   "rating": 7.1,
   "image": "https://images.justwatch.com/poster/1315224/s592/",
   "spokenLanguages": [
-   "sq",
-   "en",
    "ar",
-   "ro"
+   "en",
+   "ro",
+   "sq"
   ],
   "originalLanguage": "en"
  },
@@ -14070,8 +14070,8 @@
   "rating": 7.4,
   "image": "https://images.justwatch.com/poster/9926766/s592/",
   "spokenLanguages": [
-   "de",
    "cs",
+   "de",
    "en",
    "no"
   ],
@@ -15771,8 +15771,8 @@
   "rating": 7.4,
   "image": "https://images.justwatch.com/poster/7423240/s592/",
   "spokenLanguages": [
-   "fr",
-   "en"
+   "en",
+   "fr"
   ],
   "originalLanguage": "fr"
  },
