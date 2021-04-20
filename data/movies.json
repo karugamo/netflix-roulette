@@ -583,7 +583,8 @@
   "rating": 7.1,
   "image": "https://images.justwatch.com/poster/11074142/s592/",
   "spokenLanguages": [
-   "zh"
+   "zh",
+   "de"
   ],
   "originalLanguage": "zh"
  },
@@ -613,6 +614,7 @@
   "spokenLanguages": [
    "cn",
    "zh",
+   "de",
    "fr"
   ],
   "originalLanguage": "cn"
@@ -10458,8 +10460,8 @@
   "rating": 7.5,
   "image": "https://images.justwatch.com/poster/174929624/s592/",
   "spokenLanguages": [
-   "en",
    "de",
+   "en",
    "pt"
   ],
   "originalLanguage": "en"
@@ -18337,11 +18339,11 @@
   "rating": 7,
   "image": "https://images.justwatch.com/poster/88092776/s592/",
   "spokenLanguages": [
-   "zh",
-   "fr",
-   "es",
    "en",
-   "id"
+   "es",
+   "id",
+   "zh",
+   "fr"
   ],
   "originalLanguage": "id"
  },
