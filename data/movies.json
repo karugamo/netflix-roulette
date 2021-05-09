@@ -1253,7 +1253,7 @@
    "fr",
    "ht"
   ],
-  "originalLanguage": "pl"
+  "originalLanguage": "en"
  },
  {
   "id": "70044379",
@@ -1542,8 +1542,8 @@
   "rating": 6.9,
   "image": "https://images.justwatch.com/poster/10690702/s592/",
   "spokenLanguages": [
-   "cn",
    "en",
+   "cn",
    "ko"
   ],
   "originalLanguage": "en"
@@ -15922,7 +15922,6 @@
   "rating": 7.7,
   "image": "https://images.justwatch.com/poster/61870323/s592/",
   "spokenLanguages": [
-   "de",
    "en"
   ],
   "originalLanguage": "en"
