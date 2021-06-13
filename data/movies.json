@@ -3520,7 +3520,9 @@
   "rating": 7.7,
   "image": "https://images.justwatch.com/poster/9044983/s592/",
   "spokenLanguages": [
+   "ar",
    "en",
+   "de",
    "fa"
   ],
   "originalLanguage": "en"
@@ -26967,9 +26969,9 @@
   "rating": 7.2,
   "image": "https://images.justwatch.com/poster/213518686/s592/",
   "spokenLanguages": [
-   "en",
    "de",
-   "es"
+   "es",
+   "en"
   ],
   "originalLanguage": "en"
  },
