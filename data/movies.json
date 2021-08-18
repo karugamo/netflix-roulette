@@ -3582,13 +3582,13 @@
   "rating": 7.9,
   "image": "https://images.justwatch.com/poster/200201100/s592/",
   "spokenLanguages": [
-   "en",
    "zh",
-   "ru",
-   "ta",
    "fr",
    "hi",
-   "ja"
+   "en",
+   "ja",
+   "ru",
+   "ta"
   ],
   "originalLanguage": "en"
  },
