@@ -2915,11 +2915,11 @@
   "rating": 7.4,
   "image": "https://images.justwatch.com/poster/210162207/s592/",
   "spokenLanguages": [
-   "en",
-   "ar",
-   "de",
    "fr",
-   "sv"
+   "ar",
+   "en",
+   "sv",
+   "de"
   ],
   "originalLanguage": "de"
  },
