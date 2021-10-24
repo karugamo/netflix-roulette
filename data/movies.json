@@ -362,8 +362,8 @@
   "rating": 7.9,
   "image": "https://images.justwatch.com/poster/104809288/s592/",
   "spokenLanguages": [
-   "ja",
-   "es"
+   "es",
+   "ja"
   ],
   "originalLanguage": "ja"
  },
@@ -2423,8 +2423,10 @@
   ],
   "rating": 7.6,
   "image": "https://images.justwatch.com/poster/139087510/s592/",
-  "spokenLanguages": [],
-  "originalLanguage": "en"
+  "spokenLanguages": [
+   "ro"
+  ],
+  "originalLanguage": "ro"
  },
  {
   "id": "70242548",
