@@ -6181,11 +6181,11 @@
   "rating": 7.7,
   "image": "https://images.justwatch.com/poster/139024167/s592/",
   "spokenLanguages": [
-   "de",
+   "cs",
    "en",
    "it",
    "sv",
-   "cs"
+   "de"
   ],
   "originalLanguage": "de"
  },
@@ -23252,13 +23252,13 @@
   "rating": 7.6,
   "image": "https://images.justwatch.com/poster/145343729/s592/",
   "spokenLanguages": [
-   "de",
    "en",
-   "es",
    "fr",
+   "de",
    "it",
    "la",
-   "pt"
+   "pt",
+   "es"
   ],
   "originalLanguage": "en"
  },
