@@ -1,21 +1,21 @@
-import got from 'got'
-import {keyBy, mapValues, range} from 'lodash'
-import {Movie} from '../src/types'
-import {save} from './util'
+import got from "got";
+import { keyBy, mapValues, range } from "lodash";
+import { Movie } from "../src/types";
+import { save } from "./util";
 
-const languages = ['en', 'de']
+const languages = ["en", "de"];
 
 async function main() {
-  const data = await fetchJustWatch()
-  const movies = data.map(selectMovie)
-  console.log('Fetched', movies.length, 'movies')
-  save('movies', movies)
+  const data = await fetchJustWatch();
+  const movies = data.map(selectMovie);
+  console.log("Fetched", movies.length, "movies");
+  save("movies", movies);
 
-  const genres = await fetchGenreNames()
-  save('genres', genres)
+  const genres = await fetchGenreNames();
+  save("genres", genres);
 }
 
-main()
+main();
 
 function selectMovie(justWatchMovieLocalized: any): Movie {
   // for available data, see: https://apis.justwatch.com/content/titles/movie/56184/locale/de_DE?language=en
@@ -27,97 +27,100 @@ function selectMovie(justWatchMovieLocalized: any): Movie {
     offers,
     poster,
     runtime,
-    external_ids
-  } = justWatchMovieLocalized.en
+    external_ids,
+  } = justWatchMovieLocalized.en;
 
   const title = Object.fromEntries(
-    languages.map((lang) => [lang, justWatchMovieLocalized[lang].title])
-  )
+    languages.map((lang) => [
+      lang,
+      justWatchMovieLocalized[lang]?.title ?? "Unknown Title",
+    ])
+  );
 
   return {
-    id: offers[0].urls.standard_web.split('/').pop(),
+    id: offers[0].urls.standard_web.split("/").pop(),
     title,
-    ids: mapValues(keyBy(external_ids, 'provider'), 'external_id'),
+    ids: mapValues(keyBy(external_ids, "provider"), "external_id"),
     runtime,
     year: original_release_year,
     genres: genre_ids,
-    rating: scoring.find(({provider_type}) => provider_type === 'imdb:score')
+    rating: scoring.find(({ provider_type }) => provider_type === "imdb:score")
       .value,
     image: `https://images.justwatch.com${poster.slice(
       0,
-      -'{profile}'.length
-    )}s592/`
-  }
+      -"{profile}".length
+    )}s592/`,
+  };
 }
 
 async function fetchJustWatch() {
   const query = {
     fields: [
-      'genre_ids',
-      'original_release_year',
-      'full_path',
-      'full_paths',
-      'id',
-      'object_type',
-      'poster',
-      'scoring',
-      'title',
-      'tmdb_popularity',
-      'offers',
-      'runtime',
-      'external_ids'
+      "genre_ids",
+      "original_release_year",
+      "full_path",
+      "full_paths",
+      "id",
+      "object_type",
+      "poster",
+      "scoring",
+      "title",
+      "tmdb_popularity",
+      "offers",
+      "runtime",
+      "external_ids",
     ],
-    content_types: ['movie'],
-    providers: ['nfx'],
-    sort_by: 'imdb_score',
+    content_types: ["movie"],
+    providers: ["nfx"],
+    sort_by: "imdb_score",
     enable_provider_filter: false,
     monetization_types: [],
     page: 1,
     page_size: 100,
-    matching_offers_only: true
-  }
+    matching_offers_only: true,
+  };
 
-  const data = {}
+  const data = {};
 
   for (const page of range(1, 11)) {
-    query.page = page
-    const encodedQuery = encodeURI(JSON.stringify(query))
+    query.page = page;
+    const encodedQuery = encodeURI(JSON.stringify(query));
 
     for (const lang of languages) {
-      const {items}: any = await got(
+      const { items }: any = await got(
         `https://apis.justwatch.com/content/titles/de_DE/popular?body=${encodedQuery}&language=${lang}`
-      ).json()
+      ).json();
 
       for (const item of items) {
         data[item.id] = {
           ...data[item.id],
-          [lang]: item
-        }
+          [lang]: item,
+        };
       }
     }
   }
 
-  return Object.values(data)
+  return Object.values(data);
 }
 
 async function fetchGenreNames() {
-  const genreByLanguage = {}
+  const genreByLanguage = {};
   for (const lang of languages) {
     const translations: JustWatchGenre[] = await got(
       `https://apis.justwatch.com/content/genres/locale/de_DE?language=${lang}`
-    ).json()
+    ).json();
     genreByLanguage[lang] = mapValues(
-      keyBy(translations, 'id'),
+      keyBy(translations, "id"),
       (genre) => genre.translation
-    )
+    );
   }
-  return genreByLanguage
+  return genreByLanguage;
 }
 
 type JustWatchGenre = {
-  id: number
-  short_name: string
-  technical_name: string
-  translation: string
-  slug: string
-}
+  id: number;
+  short_name: string;
+  technical_name: string;
+  translation: string;
+  slug: string;
+};
