@@ -29,7 +29,7 @@
     "@types/react-select": "^3.0.26",
     "@types/styled-components": "^5.1.4",
     "envalid": "^6.0.2",
-    "got": "^11.8.0",
+    "got": "^12.5.3",
     "i18next": "^19.8.4",
     "iso-639-1": "^2.1.4",
     "lodash": "^4.17.20",
